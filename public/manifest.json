@@ -1,0 +1,16 @@
+{
+  "short_name": "hifive Todo",
+  "name": "hifive製タスクアプリ",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "150x150"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#468143",
+  "orientation": "portrait",
+  "theme_color": "#468143",
+  "start_url": "index.html?launcher=true"
+}
