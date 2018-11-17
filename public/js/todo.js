@@ -1,5 +1,11 @@
 var TODO = 'TODO';
+var DOMAIN = 'https://well-silk.glitch.me';
+
 $(function() {
+  if (TODO === 'TODO') {
+    alert('変数TODOを変更してください');
+    return;
+  }
   var todoController = {
     __name: 'TodoController',
     // テンプレートの指定
@@ -14,7 +20,7 @@ $(function() {
       var me = this;
       // サーバから取得
       $.ajax({
-        url: '/todos/' + TODO,
+        url: DOMAIN + '/todos/' + TODO,
         type: 'GET'
       })
       .then(function(result) {
@@ -35,7 +41,7 @@ $(function() {
       var todo = this.$find('input#inputTodo').val();
       // サーバに登録
       $.ajax({
-        url: '/todos/' + TODO,
+        url: DOMAIN + '/todos/' + TODO,
         type: 'POST',
         data: {
           todo: todo
@@ -58,7 +64,7 @@ $(function() {
       var me = this;
       // サーバに送信
       $.ajax({
-        url: '/todos/' + TODO + '/' + todo,
+        url: DOMAIN + '/todos/' + TODO + '/' + todo,
         type: 'DELETE'
       })
       .then(function(result) {

@@ -59,3 +59,15 @@ self.addEventListener('fetch', async (event) => {
       })
   );
 });
+
+// Todoの一覧を更新する処理（第5章）
+
+// Webプッシュ通知の処理（第7章）
+self.addEventListener('push', ev => {
+  // payloadの取得
+  const {title, msg, icon} = ev.data.json();
+  self.registration.showNotification(title, {
+    icon: icon,
+    body: msg
+  });
+});

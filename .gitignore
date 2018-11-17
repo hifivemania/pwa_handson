@@ -2,3 +2,5 @@ node_modules/
 .DS_Store
 .data/
 .node-version
+application-server-keys.json
+token.json

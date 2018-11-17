@@ -47,10 +47,7 @@ app.delete("/todos/:name/:todo", function (req, res) {
       return res.json({});
     } else {
       for (let i = 0; i < result.todos.length; i += 1) {
-        if (result.todos[i] === req.params.todo) {
-          delete result.todos[i];
-          break;
-        }
+        result.todos = result.todos.filter(todo => todo != req.params.todo)
       }
       const id = result._id;
       delete result._id;
@@ -58,6 +55,16 @@ app.delete("/todos/:name/:todo", function (req, res) {
     }
     res.json({status: 'deleted', todo: req.params.todo});
   });
+});
+
+app.get('/key', async function(req, res) {
+  try {
+    const content = await promisify(fs.readFile)('./application-server-keys.json', 'utf8');
+    const json = JSON.parse(content);
+    res.json({key: json.publicKey});
+  } catch (err) {
+    res.status(404).render({});
+  }
 });
 
 // listen for requests :)
