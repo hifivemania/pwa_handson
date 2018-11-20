@@ -16,7 +16,9 @@ const urlsToCache = [
   "/js/todo.js",
   "/js/app.js",
   "/sw.js",
-  "/"
+  "/",
+  "/components/loader.css",
+  "/components/loader.js"
 ];
 
 // Service Workerがインストールされた時に呼ばれる処理
@@ -48,16 +50,7 @@ self.addEventListener('activate', function(event) {
 
 // ネットワークアクセス時に使われるfetchイベント
 self.addEventListener('fetch', async (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        } else {
-          return fetch(event.request);
-        }
-      })
-  );
+  // ここに記述してください（第4章）
 });
 
 // Todoの一覧を更新する処理（第5章）

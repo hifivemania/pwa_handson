@@ -98,6 +98,7 @@ $(function() {
     },
     // 表示を更新する処理
     updateView: function() {
+      var me = this;
       // 表示を更新
       this.view.update('#list', 'listTemplate', {
         todos: this.__todos
@@ -112,7 +113,7 @@ $(function() {
         // オンライン時の処理
         // サーバに登録
         $.ajax({
-          url: '/todos/' + TODO,
+          url: DOMAIN + '/todos/' + TODO,
           type: 'POST',
           data: {
             todo: todo
@@ -134,7 +135,7 @@ $(function() {
         }
         // オンライン時はサーバに送信
         $.ajax({
-          url: '/todos/' + TODO + '/' + todo,
+          url: DOMAIN + '/todos/' + TODO + '/' + todo,
           type: 'DELETE'
         })
         .then(function(result) {

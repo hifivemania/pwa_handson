@@ -4,12 +4,14 @@
   } else {
     return;
   }
-  // 公開鍵をサーバから取得します
-  const key = await $.ajax({
-    url: '/key'
-  })
+  // KEYを生成した公開鍵に書き換えます
+  const key = 'KEY';
+  if (key === 'KEY') {
+    alert('KEYを書き換えてください');
+    return;
+  }
   // キーを変換します
-  const convertedVapidKey = urlBase64ToUint8Array(key.key);
+  const convertedVapidKey = urlBase64ToUint8Array(key);
   // Service Workerのインストール
   await navigator.serviceWorker.register('./sw.js');
   // プッシュ通知のサポートを確認
