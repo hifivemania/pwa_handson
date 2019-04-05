@@ -1,5 +1,5 @@
 var TODO = 'TODO';
-var DOMAIN = 'https://well-silk.glitch.me';
+var DOMAIN = 'http://localhost:3000';
 
 // オフライン時に追加/削除するTodo入れておくキュー
 var queues = {add: [], delete: []};
