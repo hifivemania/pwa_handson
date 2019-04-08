@@ -11,10 +11,6 @@ for (var name of ['add', 'delete']) {
 }
 
 $(function() {
-  if (TODO === 'TODO') {
-    alert('変数TODOを変更してください');
-    return;
-  }
   var todoController = {
     __name: 'TodoController',
     // テンプレートの指定
