@@ -32,13 +32,13 @@
   // Service Workerを有効にする
   const serviceWorkerRegistration = await navigator.serviceWorker.ready;
   // 購読情報を取得
-  const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
+  let subscription = await serviceWorkerRegistration.pushManager.getSubscription();
   if (subscription) {
     // すでに購読中
   } else {
     // 未購読
     // 購読の確認
-    const subscription = await serviceWorkerRegistration.pushManager.subscribe({
+    subscription = await serviceWorkerRegistration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: convertedVapidKey
     });
