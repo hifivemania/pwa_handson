@@ -24,7 +24,7 @@ $(function() {
       var me = this;
       // サーバから取得
       $.ajax({
-        url: DOMAIN + '/todos/' + TODO,
+        url: DOMAIN,
         type: 'GET'
       })
       .then(function(result) {
@@ -108,7 +108,7 @@ $(function() {
         // オンライン時の処理
         // サーバに登録
         $.ajax({
-          url: DOMAIN + '/todos/' + TODO,
+          url: DOMAIN,
           type: 'POST',
           data: {
             todo: todo
@@ -130,7 +130,7 @@ $(function() {
         }
         // オンライン時はサーバに送信
         $.ajax({
-          url: DOMAIN + '/todos/' + TODO + '/' + todo,
+          url: DOMAIN,
           type: 'DELETE'
         })
         .then(function(result) {
