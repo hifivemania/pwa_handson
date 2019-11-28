@@ -48,7 +48,7 @@ $(function() {
       this.addTodo(todo)
         .then(function(result) {
           // サーバから取得したTodoを追加
-          me.__todos.push(result.todo);
+          me.__todos.push(result);
           // 表示を更新
           me.updateView();
           // 入力欄を消す
@@ -63,7 +63,7 @@ $(function() {
         .then(function(result) {
           // 変数からタスクを消す
           me.__todos = me.__todos.filter(function(t) {
-            return todo != t;
+            return todo != t._id;
           });
           // 表示を更新
           me.updateView();
@@ -73,7 +73,7 @@ $(function() {
     executeTask: function(action, todo) {
       switch (action) {
       case 'add':
-        this.addTodo(todo);
+        this.addTodo(todo.todo);
         break;
       case 'delete':
         this.deleteTodo(todo);
@@ -110,9 +110,11 @@ $(function() {
         $.ajax({
           url: DOMAIN,
           type: 'POST',
-          data: {
+          contentType: 'application/json',
+          dataType : 'JSON',
+          data: JSON.stringify({
             todo: todo
-          }
+          })
         })
         .then(function(result) {
           res(result)
@@ -120,26 +122,34 @@ $(function() {
       })
     },
     // Todoを削除する処理
-    deleteTodo: function(todo) {
+    deleteTodo: function(id) {
       return new Promise(function(res, rej) {
         // オフライン時
+        if (id.indexOf('_local_') > -1) {
+          queues.add = queues.add.filter(function(t) {
+            return t._id !== id
+          });
+          localStorage.setItem('addQueue', JSON.stringify(queues.add));
+          return res({id});
+        }
         if (!navigator.onLine) {
-          queues.delete.push(todo);
+          queues.delete.push(id);
           localStorage.setItem('deleteQueue', JSON.stringify(queues.delete));
-          return res({todo});
+          return res({id});
         }
         // オンライン時はサーバに送信
         $.ajax({
-          url: DOMAIN,
+          url: DOMAIN + '/' + id,
           type: 'DELETE'
         })
         .then(function(result) {
-          return res(todo);
+          return res(id);
         })
       })
     },
     // オンライン復帰時の処理（第6章用）
     '{window} online': function(context) {
+      this.executeQueue(queues);
     }
   };
   h5.core.controller('.container', todoController);
