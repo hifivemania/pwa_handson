@@ -1,5 +1,4 @@
-var TODO = 'TODO';
-var DOMAIN = 'http://localhost:3000';
+var DOMAIN = 'JSON BoxのURL';
 
 // オフライン時に追加/削除するTodo入れておくキュー
 var queues = {add: [], delete: []};
