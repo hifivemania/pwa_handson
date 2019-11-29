@@ -1,4 +1,4 @@
-var DOMAIN = 'JSON BoxのURL';
+var DOMAIN = 'https://jsonbox.io/box_57899be9dae6ff8bff15';
 
 // オフライン時に追加/削除するTodo入れておくキュー
 var queues = {add: [], delete: []};

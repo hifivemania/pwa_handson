@@ -1,3 +1,4 @@
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 // キャッシュ名
 const CACHE_NAME = 'YOUR_CACHE_NAME';
 // キャッシュするURL
@@ -23,30 +24,17 @@ const urlsToCache = [
 
 // Service Workerがインストールされた時に呼ばれる処理
 self.addEventListener('install', event => {
-  // Service Workerがバージョンアップしている時に、新しいものを有効にする処理
-  event.waitUntil(self.skipWaiting());
-  // キャッシュ登録処理を完了するのを保証する
-  event.waitUntil(
-    // キャッシュを開く
-    caches.open(CACHE_NAME)
-      // 指定したURLをキャッシュに登録する
-      .then(cache => {
-        urlsToCache.map(url => {
-          // アクセスして結果を受け取る
-          fetch(new Request(url))
-            .then(response => {
-              // 結果をキャッシュに登録する
-              return cache.put(url, response);
-            }, err =>  console.log(err));
-        });
-      })
-  );
 });
 
 // Service Workerがバージョンアップしている時に、新しいものを有効にする処理
 self.addEventListener('activate', function(event) {
   event.waitUntil(self.clients.claim());
 });
+
+workbox.routing.registerRoute(
+  /127.0.0.1:8887/,
+  workbox.strategies.staleWhileRevalidate()
+);
 
 // ネットワークアクセス時に使われるfetchイベント
 self.addEventListener('fetch', async (event) => {
